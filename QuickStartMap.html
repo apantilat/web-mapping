@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <title>University of Oregon Mapping</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+
+    
+
+
+          
+   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    
+
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        #title { z-index: 9999; 
+          background-color:white; 
+          opacity: 80%; 
+          text-align: center;
+          font-family: Arial, Helvetica, sans-serif;
+          color: green;
+          text-shadow: 5px 5px 5px yellowgreen
+        } 
+        
+
+
+    </style>
+  </head>
+
+  <body>
+    <div id='map'></div>
+   
+    <!--  Insert the title div here (part V) -->
+
+    <div id='title'>
+        <h1>My Map of Portland</h1>
+        <h2>By: Adam Pantilat</h2>
+
+    </div>
+
+   
+
+
+    <script>
+        // Insert the JavaScript within the <script> tags, within the body   
+        // Start with the Mapbox access token here (Part 2.1)
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWRhbXBhbnQiLCJhIjoiY205MXVkNmdxMDR5NTJrb2RwazQ2ZzhhYSJ9.XB4XF37ufNA3ENJZdMm3VA';
+ 
+   
+        // Then initialize the map here (Part 2.2)
+        var map = new mapboxgl.Map({
+            container: 'map', // id of a div on your page, where the map will be inserted
+            style: 'mapbox://styles/mapbox/light-v11', // stylesheet location
+            center: [-122.6788, 45.5212], // starting position [lng, lat] eg. [-122.6788, 45.5212]
+            zoom: 11 // starting zoom 
+        });
+   
+        // Add popups for markers here. Yes, before the markers!  (part IV)
+        var popup = new mapboxgl.Popup({offset: 25})
+          .setHTML('Hello World. Welcome to Portland!');
+        
+        // Add any other variables such as markers here (part III)
+        var marker = new mapboxgl.Marker({color: 'green'})
+         .setLngLat([-122.6788, 45.5212]) // starting position [lng, lat] 
+         .setPopup(popup)
+         .addTo(map);
+
+        var marker2 = new mapboxgl.Marker({color: 'green'})
+          .setLngLat([-122.69, 45.55])
+          .addTo(map);
+
+        var marker3 = new mapboxgl.Marker({color: 'green'})
+         .setLngLat([-122.59119317156117, 45.585462119167225]) // starting position [lng, lat] 
+         .addTo(map);
+
+
+        var popup_layer = new mapboxgl.Popup({
+              closeOnClick: true, anchor: 'top-right'
+          })
+          .setLngLat([-122.64, 45.5])
+          .setHTML('<h1>Hi Portland!</h1>')
+          .addTo(map);
+
+        var popup_layer_voodoo = new mapboxgl.Popup({
+              closeOnClick: true, anchor: 'top-left'
+          })
+          .setLngLat([-122.673308, 45.522675])
+          .setHTML('<a href="https://www.voodoodoughnut.com">Voodoo Donuts</a>')
+          .addTo(map);
+
+        var popup_layer_art = new mapboxgl.Popup({
+              closeOnClick: true, anchor: 'top-right'
+          })
+          .setLngLat([-122.68356765928827, 45.516804654296585,])
+          .setHTML('<a href="https://portlandartmuseum.org">Portland Art Museum</a>')
+          .addTo(map);
+
+
+        // Add optional advanced "On load" function here
+        
+    </script>
+
+  </body>
+
+</html>
