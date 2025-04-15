@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <title>Fixed Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js'></script>
+      
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
+
+    <style>
+      body { margin:50px; padding:0; }
+      #map1 { position:relative; height:300px; width:100%;}        
+      #map2 { position:relative; height:300px; width:100%;}
+      #map3 { position:relative; height:300px; width:100%;}
+
+        /* 2.5.2 Insert additional CSS code here between the <style> tags */
+
+    </style>
+  </head>
+
+  <body>
+    <h1>Three restaurants for your San Francisco to Eugene road trip</h1>
+    <p>Considering a road trip between San Francisco, California and Eugene, Oregon? Here are three food options on the way that have been thoroughly tested.</p>
+    <hr>
+    <h2>In-N-Out Burger</h2>
+    <p>In-N-Out is a fast food staple of the West Coast. The one in Vacaville, California is always a reliable option. I recommend a Double-Double, fries, and pink lemonade.</p>
+    <div id='map1'></div>
+    <hr>
+    <h2>Yaks Shack</h2>
+    <p>Yaks Shack has an eccentric selection of burgers and sandwiches. Yaks Shack in Mount Shasta, California is a great place to eat a large amount of food with a view of the volcano. I recommend the curly fries. </p>
+    <div id='map2'></div>
+    <hr>
+    <h2>Sammich</h2>
+      <p>Sammich has excellent sandwiches with an emphasis on house-made ingredients. Located in Ashland, Oregon, Sammich is a great place to relax with an artisinal sandwich and enjoy the scenery. Also, sandwiches come with chips as a bonus. I recommend whatever the special is.</p>
+      <div id='map3'></div>
+
+        <script>
+            /* Insert the JavaScript within the <script> tags, within the body */
+          mapboxgl.accessToken = 'pk.eyJ1IjoiYWRhbXBhbnQiLCJhIjoiY205MXVkNmdxMDR5NTJrb2RwazQ2ZzhhYSJ9.XB4XF37ufNA3ENJZdMm3VA'; 
+            // 2.2 Then initialize the first map
+
+          var map = new mapboxgl.Map({
+            container: 'map1', // id of a div on your page, where the map will be inserted
+            style: 'mapbox://styles/mapbox/streets-v12', // the style URL 'mapbox://styles/mapbox/streets-v11' 
+            center: [-121.96105904232839, 38.36665778215579], // starting position [lng, lat] eg. [-122.6788, 45.5212]
+            zoom: 11 // starting zoom 
+          });
+
+          var popup = new mapboxgl.Popup()
+            .setText('In-N-Out Burger');
+
+          var marker = new mapboxgl.Marker({color:'darkred'})
+            .setLngLat([-121.96105904232839, 38.36665778215579]) // starting position [lng, lat]
+            .setPopup(popup) //add the popup named "popup" to this marker 
+		        .addTo(map); // add it to the map with the ID "map"
+
+          // Disable drag and zoom handlers.
+          map.dragPan.disable();
+          map.scrollZoom.disable();
+          map.boxZoom.disable();
+          map.dragRotate.disable();
+          map.keyboard.disable();
+          map.doubleClickZoom.disable();
+          map.touchZoomRotate.disable();
+          map.touchZoomRotate.disableRotation();
+
+            // 2.5.3 Then initialize the 2nd map
+// Then initialize the 2nd map
+          var map2 = new mapboxgl.Map({
+            container: 'map2', // id of a div on your page, where the map will be inserted
+            style: 'mapbox://styles/mapbox/streets-v12', // stylesheet location
+            center: [-122.31391899950414, 41.314385897768005], // starting position [lng, lat] eg. [-122.6788, 45.5212]
+            zoom: 11 // starting zoom 
+          });
+
+            // 2.5.4 Add any other variables (such as markers) to the second map
+          var popup2 = new mapboxgl.Popup()
+            .setText('Yaks Shack');
+
+          var marker2 = new mapboxgl.Marker({color:'darkgreen'})
+            .setLngLat([-122.31391899950414, 41.314385897768005]) // starting position [lng, lat] 
+            .setPopup(popup2) //add the popup to the marker 
+            .addTo(map2); // id it to the map with the ID *map2*
+
+            // 2.5.5 Add arguments to disable the second map's interactivity here
+            // Disable drag and zoom handlers. 
+          map2.dragPan.disable();
+          map2.scrollZoom.disable();
+          map2.boxZoom.disable();
+          map2.dragRotate.disable();
+          map2.keyboard.disable();
+          map2.doubleClickZoom.disable();
+          map2.touchZoomRotate.disable();
+          map2.touchZoomRotate.disableRotation();
+
+
+          // Initialize the 3rd map
+          var map3 = new mapboxgl.Map({
+            container: 'map3', // id of a div on your page, where the map will be inserted
+            style: 'mapbox://styles/mapbox/streets-v12', // stylesheet location
+            center: [-122.693550, 42.186954], // starting position [lng, lat] eg. [-122.6788, 45.5212]
+            zoom: 11 // starting zoom 
+          });
+
+            // 2.5.4 Add any other variables (such as markers) to the second map
+          var popup3 = new mapboxgl.Popup()
+            .setText('Sammich');
+
+          var marker3 = new mapboxgl.Marker({color:'darkblue'})
+            .setLngLat([-122.693550, 42.186954]) // starting position [lng, lat] 
+            .setPopup(popup3) //add the popup to the marker 
+            .addTo(map3); // id it to the map with the ID *map2*
+
+            // 2.5.5 Add arguments to disable the second map's interactivity here
+            // Disable drag and zoom handlers. 
+          map3.dragPan.disable();
+          map3.scrollZoom.disable();
+          map3.boxZoom.disable();
+          map3.dragRotate.disable();
+          map3.keyboard.disable();
+          map3.doubleClickZoom.disable();
+          map3.touchZoomRotate.disable();
+          map3.touchZoomRotate.disableRotation();
+            // 2.6 Change the map pointers
+          map.getCanvas().style.cursor = 'auto';
+          map2.getCanvas().style.cursor = 'auto';
+          map3.getCanvas().style.cursor = 'auto';
+
+
+        </script>
+  </body>
+</html>
