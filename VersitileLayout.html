@@ -1,0 +1,127 @@
+<!-- A Versatile Layout for Full-screen Maps by Andy Cochran
+Andy Cochran 
+From https://medium.com/nyc-planning-digital/a-versatile-layout-for-full-screen-maps-229cec508b22 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Hello World</title>
+
+
+    <!-- JavaScript Libraries-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
+
+
+    <!-- CSS Links -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" rel="stylesheet" />
+    <link href="VersitileLayout.css" rel="stylesheet" />
+
+
+
+</head>
+
+<body>
+
+    <div class="site-header">
+        <strong class="site-title">Map of Activities in Washington, DC</strong>
+    </div>
+
+    <div class="site-main grid-x has-content-open">
+
+        <div class="map-container cell medium-auto large-order-2">
+            <!--  ADD iframe here, inside the versitle layout's map container (VI.2.)   -->
+            <iframe src="filter-markers.html" title="Map"></iframe>
+
+        </div>
+
+        <!--  Sidebar panel  -->
+        <div class="sidebar cell medium-3 large-2 large-order-1 show-for-medium">
+            <h5>Sidebar</h5>
+            <ul>
+                <li><a class="content-link" href="#" data-target="description">Description</a></li>
+                <li><a class="content-link" href="#" data-target="theatre">Theatre</a></li>
+                <li><a class="content-link" href="#" data-target="bar">Bar</a></li>
+                <li><a class="content-link" href="#" data-target="bicycle">Bicycle</a></li>
+                <li><a class="content-link" href="#" data-target="music">Music</a></li>
+            </ul>
+            <hr />
+        </div>
+
+        <div class="content-close-button-container">
+            <a href="#" class="content-close-button">×</a>
+        </div>
+
+        <!--  Content panel  -->
+        <div class="content cell large-5 large-order-3">
+            <div class="content-section" id="description">
+                <h2>Activities in Washington, DC</h2>
+                <p>There is more to Washington, DC than politicians. This interactive map shows some of the ways to
+                    enjoy
+                    America's capitol city. Whether you are interested in theatre, music, bars, or bicycles, this map
+                    has
+                    something for everyone.</p>
+                <p>Explore the map and zoom in on an activity. Click on an activity icon for more information. Toggle
+                    the
+                    visible activites with the blue buttons in the top-right.</p>
+            </div>
+            <div class="content-section" id="theatre" style="display: none;">
+                <h2>Theatre</h2>
+                <p>There are many great theatres in Washington, DC for drama enthusiasts. Each one offers a different
+                    experience.</p>
+            </div>
+            <div class="content-section" id="bar" style="display: none;">
+                <h2>Bar</h2>
+                <p>Bars are a classic place to unwind in Washington, DC. This one near Arlington National Cemetery is
+                    one you can't miss.</p>
+            </div>
+            <div class="content-section" id="bicycle" style="display: none;">
+                <h2>Bicycle</h2>
+                <p>Tired of the city? Washington DC, has excellent bicycle routes to get some fresh air. This one near
+                    Rock Creek is a local favorite.</p>
+            </div>
+            <div class="content-section" id="music" style="display: none;">
+                <h2>Music</h2>
+                <p>Washington, DC is home to many great music venues. Wherever you are, there is probably one nearby.
+                    See one of your favorite artists or discover something new.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('.content-close-button').click(function () {
+                $('.content-close-button').hide();
+                $('.content').hide();
+                $('.site-main').removeClass('has-content-open')
+
+                // When the map is resized programmatically, window resize must be triggered so that the map renders in the newly allotted space.
+                window.dispatchEvent(new Event('resize'));
+
+            });
+
+            $('.content-link').click(function (e) {
+                e.preventDefault();
+                const target = $(this).data('target');
+
+                $('.content-close-button').show();
+                $('.content').show();
+                $('.site-main').addClass('has-content-open');
+
+                $('.content-section').hide();
+                $('#' + target).show();
+
+                window.dispatchEvent(new Event('resize'));
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
