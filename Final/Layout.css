@@ -1,0 +1,295 @@
+/*Some elements need explicit heights on large screens which are used to calculate the size of full-height components. */
+
+body {
+  overflow: hidden;
+}
+
+.site-title {
+  height: 6rem;
+  font-size: 6;
+  position: relative;
+  z-index: 2;
+  background-color: black;
+  font-family: 'chineserocks', regular;
+  display: flex;
+  align-items: center;
+}
+
+@font-face {
+  font-family: 'chineserocks';
+  src: url('fonts/chineserocks.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'hapna';
+  src: url('fonts/hapna.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.site-title {
+  font-size: 4rem;
+  line-height: 4rem;
+  color: #961C26;
+  padding: 2rem;
+  cursor: default;
+
+
+}
+
+.site-title .small {
+  font-size: 2rem;
+  line-height: 4rem;
+  color: #961C26;
+  padding: 2rem;
+  cursor: default;
+  vertical-align: baseline;
+  display: flex;
+  /* or middle, depending on layout */
+
+
+
+
+}
+
+.content-section ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+  max-width: 90%;
+
+}
+
+.citation-list {
+  padding-left: 0;
+  margin-left: 0;
+  font-size: 0.5rem;
+  line-height: 2rem;
+  color: #E6E6E6;
+  font-family: 'hapna', regular;
+  background-color: black;
+  cursor: default;
+  text-decoration: none;
+
+}
+
+.content-section {
+  background-color: black;
+  position: relative;
+}
+
+.content-section h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  /* Ensures baseline alignment even with different font sizes */
+  font-size: 3rem;
+  line-height: 4rem;
+  color: #E6E6E6;
+  font-family: 'chineserocks', regular;
+  background-color: transparent;
+  cursor: default;
+  padding: 0;
+  /* Remove default padding if needed */
+}
+
+.content-section h2 .right-justified {
+  font-size: 1.25rem;
+  line-height: 4rem;
+  color: #E6E6E6;
+  font-family: 'hapna', regular;
+  background-color: black;
+  margin-left: 1rem;
+  /* Optional: adds a gap between the texts */
+}
+
+.content-section p {
+  padding-left: 0;
+  margin-left: 0;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  color: #E6E6E6;
+  font-family: 'hapna', regular;
+  background-color: black;
+  cursor: default;
+}
+
+.content-section .right-justified {
+  display: block;
+  text-align: right;
+  /* Your other styles */
+  font-size: 1.25rem;
+  line-height: 4rem;
+  color: #E6E6E6;
+  font-family: 'hapna', regular;
+  background-color: black;
+  cursor: default;
+  position: relative;
+}
+
+.content-section .center-justified {
+  display: block;
+  text-align: center;
+  /* Your other styles */
+  font-size: 1.25rem;
+  line-height: 2rem;
+  color: #E6E6E6;
+  font-family: 'hapna', regular;
+  background-color: black;
+  cursor: default;
+}
+
+.content-section .image-citation {
+
+  font-size: 0.5rem;
+  line-height: 1rem;
+  color: #E6E6E6;
+  font-family: 'hapna', regular;
+  background-color: black;
+  cursor: default;
+}
+
+
+/*.site-main contains everything except the header. On large screens, it fills the remaining height of the window.*/
+.site-main {
+  position: relative;
+  z-index: 1;
+  background-color: black;
+
+  /*large screens*/
+}
+
+@media screen and (min-width: 64em) {
+  .site-main {
+    height: calc(100vh - 4rem);
+  }
+}
+
+.map-container {
+  height: 80vh;
+  border: none;
+
+  /* large screens*/
+}
+
+@media screen and (min-width: 64em) {
+  .map-container {
+    height: 100%;
+  }
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.sidebar {
+  z-index: 2;
+  padding: 1rem;
+  background-color: black;
+  font-family: 'hapna';
+  color: #E6E6E6
+    /*   On medium screens, the sidebar is set to match the height of the map minus search.*/
+    /*  On large screens, the sidebar is full-height*/
+}
+
+.sidebar h5 {
+  font-family: 'chineserocks';
+  font-size: 3rem;
+  line-height: 4rem;
+  cursor: default;
+
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  color: #E6E6E6;
+  font-family: 'hapna', regular;
+  background-color: black;
+}
+
+.sidebar a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+
+}
+
+.sidebar .content-link {
+  color: #E6E6E6;
+  /* Default link color */
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
+
+}
+
+.sidebar .content-link:hover {
+  color: #961C26;
+  /* background-color: #007BFF; */
+  /* border-radius: 4px; */
+}
+
+
+
+@media screen {
+  .sidebar {
+    height: calc(100% - 3.25rem);
+  }
+}
+
+
+.content-section .content-close-button {
+  color: #E6E6E6;
+  margin: 0;
+  font-size: 2rem;
+  font-family: 'chineserocks';
+  line-height: 4rem;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+
+  /*   On large screens, the close button is positioned on the edge of the content area, overlapping the map.  */
+}
+
+.content-close-button:hover {
+  color: #961C26;
+
+  /*   On large screens, the close button is positioned on the edge of the content area, overlapping the map.  */
+}
+
+.content {
+  display: block;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 0rem;
+  z-index: 3;
+  /*   On medium screens, the content area is set to match the height of the map*/
+}
+
+@media screen and (min-width: 64em) {
+  .content {
+    height: calc(100%);
+    overflow-y: auto;
+  }
+}
+
+/* On medium screens, if the content area is not open, make the map and sidebar full-height.*/
+@media print,
+screen and (min-width: 40em) {
+
+  .site-main:not(.has-content-open) .map-container,
+  .site-main:not(.has-content-open) .sidebar {
+    height: calc(100vh - 4rem);
+  }
+}

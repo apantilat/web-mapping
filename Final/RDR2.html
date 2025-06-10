@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Mapbox Web Map Template</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .marker {
+            background-image: url('images/marker.svg');
+            background-size: cover;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            filter: opacity(0.9);
+            transition: width 0.3s ease, height 0.3s ease;
+
+
+        }
+
+        .marker:hover {
+            width: 60px;
+            height: 60px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        // Set your Mapbox access token here
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWRhbXBhbnQiLCJhIjoiY205MXVkNmdxMDR5NTJrb2RwazQ2ZzhhYSJ9.XB4XF37ufNA3ENJZdMm3VA';
+
+        const bounds = [
+            [-125, 24],   // Southwest corner [lng, lat] 20.612848818802018, -128.1723546277945
+            [-66, 49]    // Northeast corner [lng, lat] 47.58757648563215, -59.17359517768954
+        ];
+
+        // Initialize the map
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/adampant/cmbnvdqt600k601sngrybfb80/draft', // style URL
+            center: [-98, 39],
+            zoom: 4.1,
+            maxZoom: 18,
+            minZoom: 4.1,
+            pitch: 0,
+            bearing: 0,
+            maxBounds: bounds
+        });
+
+        // Fly
+        window.flyToLocation = function (lon, lat, zoom = 14) {
+            map.flyTo({
+                center: [lon, lat],
+                zoom: zoom,
+                essential: true
+            });
+        };
+
+
+        map.dragRotate.disable();
+        map.keyboard.disable();
+        map.doubleClickZoom.disable();
+        map.touchZoomRotate.disable();
+        map.touchZoomRotate.disableRotation();
+
+        const places = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-81.22231259977792, 37.26973154917623]
+                    },
+                    "properties": {
+                        "name": "annesburg"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-101.83618762828229, 35.204744138783454]
+                    },
+                    "properties": {
+                        "name": "armadillo"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-90.19693749320446, 38.62943644235556]
+                    },
+                    "properties": {
+                        "name": "blackwater"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-83.98541185565378, 34.52637535063253]
+                    },
+                    "properties": {
+                        "name": "rhodes"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-90.06522623082802, 29.94989380842647]
+                    },
+                    "properties": {
+                        "name": "saintDenis"
+                    },
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-120.7932026842153, 38.73029044132742]
+                    },
+                    "properties": {
+                        "name": "strawberry"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-110.06758355377782, 31.712865121837652]
+                    },
+                    "properties": {
+                        "name": "tumbleweed"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-104.81368771275072, 41.134892934194575]
+                    },
+                    "properties": {
+                        "name": "valentine"
+                    }
+                },
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-91.40478652864448, 31.560443317112718]
+                    },
+                    "properties": {
+                        "name": "vanHorn"
+                    }
+                }
+            ]
+        };
+
+        map.on('load', function () {
+            // Method 1: Custom DOM markers (interactive, styled via CSS)
+            for (const marker of places.features) {
+                const el = document.createElement('div');
+                el.className = 'marker';
+
+                el.addEventListener('click', () => {
+                    const [lon, lat] = marker.geometry.coordinates;
+                    const name = marker.properties.name;
+
+                    // Fly on the map
+                    map.flyTo({
+                        center: [lon, lat],
+                        zoom: 14,
+                        essential: true
+                    });
+
+                    // Send a message to the parent
+                    window.parent.postMessage({
+                        type: 'marker-click',
+                        target: name
+                    }, '*'); // or restrict to your origin
+                });
+
+                new mapboxgl.Marker(el)
+                    .setLngLat(marker.geometry.coordinates)
+                    .addTo(map);
+
+                // Trigger content link in parent page (normalize name to match `data-target`)
+                //const target = name
+                // const link = window.parent.document.querySelector(`.content-link[data-target="${name}"]`);
+                // if (link) link.click();
+            };
+
+        });
+
+        window.addEventListener('message', function (event) {
+            // Optionally, check event.origin for security
+            if (event.data && event.data.type === 'fly-to') {
+                const { lon, lat, zoom } = event.data;
+                if (typeof map !== "undefined") {
+                    map.flyTo({
+                        center: [lon, lat],
+                        zoom: zoom || 14,
+                        essential: true,
+                        speed: 2
+                    });
+                }
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
